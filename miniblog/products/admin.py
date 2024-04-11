@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
 from products.models import (
     Category,
     Product,
@@ -9,6 +8,12 @@ from products.models import (
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    ordering = ("name", "price")  # puede ser tupla o lista.
+    search_fields = ("name", "price")
+    # list_filter = ("category",)
+    list_editable = ("price",)
+    empty_value_display = "No hay datos para este campo"
+
     list_display = (
         "name",
         "price",
