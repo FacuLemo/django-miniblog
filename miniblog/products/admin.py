@@ -13,7 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ("name", "price")
     list_filter = ("category",)
     # list_editable = ("price",)
-    readonly_fields = ("name",)
+    # readonly_fields = ("name",)
     empty_value_display = "No hay datos para este campo"
 
     list_display = (
