@@ -39,14 +39,14 @@ class ProductRepository:
         nombre: str,
         precio: float,
         descripcion: Optional[str] = None,
-        cantidades: Optional[int] = 0,
+        stock: Optional[int] = 0,
         categoria: Optional[Category] = None,
     ):
         return Product.objects.create(
             name=nombre,
             price=precio,
             description=descripcion,
-            stock=cantidades,
+            stock=stock,
             category=categoria,
         )
 
@@ -76,3 +76,22 @@ class ProductRepository:
         max_price: int,
     ) -> List[Product]:
         return Product.objects.filter(price__lte=max_price)
+
+    def update(
+        self,
+        producto: Product,
+        nombre: str,
+        precio: float,
+        descripcion: str,
+        stock: int,
+        categoria: Category,
+    ) -> Product:
+        if int(stock) < 0:
+            raise ValueError("No se puede tener stock negativo.")
+        producto.name = nombre
+        producto.price = precio
+        producto.stock = stock
+        producto.category = categoria
+        producto.description = descripcion
+
+        producto.save()

@@ -2,7 +2,7 @@ from django.shortcuts import HttpResponse
 
 
 def index(request):
-    return HttpResponse("HOLA")
+    return HttpResponse("ANDA A /PRODUCTS :)")
 
 
 def about(request):
