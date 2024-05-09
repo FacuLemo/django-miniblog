@@ -3,8 +3,11 @@ from django.urls import (
     include,
     path,
 )
-
-from products.views import category_list, index_view
+from products.views import (
+    category_create,
+    category_list,
+    index_view,
+)
 
 urlpatterns = [
     path("", index_view, name="index"),
@@ -14,5 +17,10 @@ urlpatterns = [
         "categories/",
         view=category_list,
         name="category_list",
+    ),
+    path(
+        "categories/create",
+        view=category_create,
+        name="category_create",
     ),
 ]

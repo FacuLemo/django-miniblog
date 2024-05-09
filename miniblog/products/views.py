@@ -25,7 +25,6 @@ def product_list(request):
 
 
 def product_create(request):
-
     if request.method == "POST":
         name = request.POST.get("name")
         description = request.POST.get("description")
@@ -82,7 +81,7 @@ def product_update(request, id):
             stock=stock,
             categoria=category,
         )
-        return redirect("products_detail", product.id)
+        return redirect("category_list", product.id)
 
     return render(
         request,
@@ -107,4 +106,15 @@ def category_list(request):
         request,
         "categories/list.html",
         dict(categories=categories),
+    )
+
+
+def category_create(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        repoCat.create(nombre=name)
+        return redirect("category_list")
+    return render(
+        request,
+        "categories/create.html",
     )

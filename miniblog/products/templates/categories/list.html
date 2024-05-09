@@ -2,12 +2,28 @@
 
 {% block content %}
 
-<div class="row">
-    <ul>
-        {% for category in categories %}
-            <li>{{category.name}}</li>
-        {% endfor %}
-    </ul>
+<div class="container mt-3">
+    <h2>Lista de Categorías</h2>
+    <a href="{% url 'category_create' %}" class="btn btn-primary mb-3">Crear Categoría</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td>{{ category.name }}</td>
+                <td>
+                    <a href="" class="btn btn-success btn-sm">Editar</a>
+                    <a href="" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 {% endblock %}
