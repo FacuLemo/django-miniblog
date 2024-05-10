@@ -9,7 +9,6 @@ from products.views import (
 )
 
 urlpatterns = [
-    # de productos:
     path(
         "",
         view=product_list,
