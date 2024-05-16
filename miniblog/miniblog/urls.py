@@ -4,12 +4,20 @@ from django.urls import (
     path,
 )
 
-from products.views import (
+from products.views.categories_view import (
     category_create,
     category_delete,
     category_list,
     category_update,
+)
+from products.views.product_view import (
     index_view,
+)
+from products.views.supplier_view import (
+    supplier_create,
+    supplier_delete,
+    supplier_list,
+    supplier_update,
 )
 
 urlpatterns = [
@@ -35,5 +43,26 @@ urlpatterns = [
         "categories/<int:id>/update",
         view=category_update,
         name="category_update",
+    ),
+    # Suppliers
+    path(
+        "suppliers/",
+        view=supplier_list,
+        name="supplier_list",
+    ),
+    path(
+        "suppliers/create",
+        view=supplier_create,
+        name="supplier_create",
+    ),
+    path(
+        "suppliers/<int:id>/delete",
+        view=supplier_delete,
+        name="supplier_delete",
+    ),
+    path(
+        "suppliers/<int:id>/update",
+        view=supplier_update,
+        name="supplier_update",
     ),
 ]

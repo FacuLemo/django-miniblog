@@ -1,6 +1,5 @@
 from django.shortcuts import redirect, render
 
-from products.models import Category
 from products.repositories.category import CategoryRepository
 from products.repositories.products import ProductRepository
 
@@ -31,7 +30,7 @@ def product_create(request):
         price = request.POST.get("price")
         stock = request.POST.get("stock")
         id_category = request.POST.get("id_category")
-        category = Category.objects.get(id=id_category)
+        category = repoCat.get_by_id(id=id_category)
 
         producto_nuevo = repo.create(
             nombre=name,
@@ -42,8 +41,7 @@ def product_create(request):
         )
         return redirect("products_detail", producto_nuevo.id)
 
-    # TODO reemplazar esta linea por un repositorio de categorias
-    categorias = Category.objects.all()
+    categorias = repoCat.get_all()
     return render(
         request,
         "products/create.html",
@@ -62,8 +60,7 @@ def product_detail(request, id):
 
 def product_update(request, id):
     product = repo.get_by_id(id=id)
-    # TODO reemplazar esta linea por un repositorio de categorias
-    categorias = Category.objects.all()
+    categorias = repoCat.get_all()
 
     if request.method == "POST":
         name = request.POST.get("name")
@@ -71,7 +68,7 @@ def product_update(request, id):
         price = request.POST.get("price")
         stock = request.POST.get("stock")
         id_category = request.POST.get("id_category")
-        category = Category.objects.get(id=id_category)
+        category = repoCat.get_by_id(id=id_category)
 
         repo.update(
             producto=product,
@@ -97,47 +94,3 @@ def product_delete(request, id):
     producto = repo.get_by_id(id)
     repo.delete(producto=producto)
     return redirect("products_list")
-
-
-# cada funcion seria un .py de una carpeta views
-def category_list(request):
-    categories = repoCat.get_all()
-    return render(
-        request,
-        "categories/list.html",
-        dict(categories=categories),
-    )
-
-
-def category_create(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        repoCat.create(nombre=name)
-        return redirect("category_list")
-    return render(
-        request,
-        "categories/create.html",
-    )
-
-
-def category_delete(request, id):
-    categ = repoCat.get_by_id(id)
-    repoCat.delete(categoria=categ)
-    return redirect("category_list")
-
-
-def category_update(request, id):
-    categ = repoCat.get_by_id(id=id)
-
-    if request.method == "POST":
-        name = request.POST.get("name")
-        repoCat.update(categoria=categ, nombre=name)
-        return redirect("category_list")
-
-    return render(
-        request,
-        "categories/update.html",
-        dict(
-            category=categ,
-        ),
-    )

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from products.views import (
+from products.views.product_view import (
     product_create,
     product_delete,
     product_detail,
@@ -34,4 +34,5 @@ urlpatterns = [
         view=product_delete,
         name="products_delete",
     ),
+    # categorías
 ]
